@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '../Button';
+
 import Logo from '../../assets/img/logo.png';
 
 import './styles.css';
@@ -10,9 +12,9 @@ function Menu() {
         <img className="logo" src={Logo} alt="PixelFlix Logo" />
       </a>
 
-      <a className="button-link" href="/">
-        Novo vídeo
-      </a>
+      <Button className="button-link" href="/">
+        Novo Vídeo
+      </Button>
     </nav>
   );
 }
