@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-  VideoCardGroupContainer,
-  VideoCardList,
-  Title,
-  ExtraLink,
-} from './styles';
+import { VideoCardGroupContainer, Title, ExtraLink } from './styles';
 import VideoCard from './components/VideoCard';
+import Slider, { SliderItem } from './components/Slider';
 
-function VideoCardGroup({ ignoreFirstVideo, category }) {
+function Carousel({ ignoreFirstVideo, category }) {
   const categoryTitle = category.title;
   const categoryColor = category.color;
   const categoryExtraLink = category.extra_link;
@@ -26,25 +22,25 @@ function VideoCardGroup({ ignoreFirstVideo, category }) {
           )}
         </>
       )}
-      <VideoCardList>
+      <Slider>
         {videos.map((video, index) => {
           if (ignoreFirstVideo && index === 0) {
             return null;
           }
 
           return (
-            <li key={video.title}>
+            <SliderItem key={video.title}>
               <VideoCard
                 videoTitle={video.title}
                 videoURL={video.url}
                 categoryColor={categoryColor}
               />
-            </li>
+            </SliderItem>
           );
         })}
-      </VideoCardList>
+      </Slider>
     </VideoCardGroupContainer>
   );
 }
 
-export default VideoCardGroup;
+export default Carousel;
