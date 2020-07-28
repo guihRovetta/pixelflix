@@ -1,22 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import './styles.css';
-
-import Button from '../Button';
+import { ButtonLink } from '../Button';
 import Logo from '../../assets/img/logo.png';
+
+import { MenuNavigation, MenuLogo } from './styles';
 
 function Menu() {
   return (
-    <nav className="menu">
+    <MenuNavigation>
       <Link to="/">
-        <img className="logo" src={Logo} alt="PixelFlix Logo" />
+        <MenuLogo src={Logo} alt="PixelFlix Logo" />
       </Link>
 
-      <Button as={Link} className="button-link" to="/registration/video">
+      <ButtonLink as={Link} to="/registration/video">
         Novo Vídeo
-      </Button>
-    </nav>
+      </ButtonLink>
+    </MenuNavigation>
   );
 }
 

@@ -21,6 +21,7 @@ function Home() {
       {initialData.categories.map((category, index) => {
         return (
           <Carousel
+            key={category.title}
             category={category}
             ignoreFirstVideo={index === 0 ? true : false}
           />

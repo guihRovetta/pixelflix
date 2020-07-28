@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import SlickSlider from 'react-slick';
 
 import { Container } from './styles';
@@ -14,11 +14,9 @@ function CustomArrow({ className, style, onClick, arrowColor }) {
 }
 
 function Slider({ children, arrowColor }) {
-  const sliderEl = useRef(null);
-
   const settings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     speed: 300,
     centerMode: false,
     variableWidth: true,
@@ -30,9 +28,7 @@ function Slider({ children, arrowColor }) {
 
   return (
     <Container>
-      <SlickSlider ref={sliderEl} {...settings}>
-        {children}
-      </SlickSlider>
+      <SlickSlider {...settings}>{children}</SlickSlider>
     </Container>
   );
 }
