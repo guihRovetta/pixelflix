@@ -12,6 +12,7 @@
   --white: #ffffff;
   --frontEnd: #6bd1ff;
   --backEnd: #00c86f;
+  --navMenuHeight: 94px;
 }
 
 html,
@@ -22,4 +23,14 @@ body {
 
 a {
   color: inherit;
+}
+
+body {
+  margin-top: var(--navMenuHeight);
+}
+
+#root {
+  min-height: calc(100vh - var(--navMenuHeight));
+  display: flex;
+  flex-direction: column;
 }

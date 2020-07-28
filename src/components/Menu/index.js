@@ -1,18 +1,19 @@
 import React from 'react';
-import Button from '../Button';
-
-import Logo from '../../assets/img/logo.png';
+import { Link } from 'react-router-dom';
 
 import './styles.css';
+
+import Button from '../Button';
+import Logo from '../../assets/img/logo.png';
 
 function Menu() {
   return (
     <nav className="menu">
-      <a href="/">
+      <Link to="/">
         <img className="logo" src={Logo} alt="PixelFlix Logo" />
-      </a>
+      </Link>
 
-      <Button className="button-link" href="/">
+      <Button as={Link} className="button-link" to="/registration/video">
         Novo Vídeo
       </Button>
     </nav>
