@@ -5,6 +5,10 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  form {
+    width: 100%;
+  }
 `;
 
 export const Title = styled.h1`

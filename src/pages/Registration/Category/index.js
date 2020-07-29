@@ -33,7 +33,7 @@ function Category() {
       <Container>
         <Title>Nova Categoria</Title>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autocomplete="off">
           <FormField
             label="Nome da Categoria"
             type="text"
