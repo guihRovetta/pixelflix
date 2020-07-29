@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
@@ -34,12 +33,16 @@ function Category() {
     setValues(initialValues);
   }
 
+  function handleClearFields() {
+    setValues(initialValues);
+  }
+
   return (
     <PageDefault>
       <Container>
         <Title>Nova Categoria</Title>
 
-        <form onSubmit={handleSubmit} autocomplete="off">
+        <form autocomplete="off">
           <FormField
             label="Nome"
             type="text"
@@ -69,16 +72,32 @@ function Category() {
             onChange={handleChange}
           />
 
-          <SaveButton>Salvar</SaveButton>
-          <CancelButton>Limpar</CancelButton>
+          <SaveButton onClick={handleSubmit}>Salvar</SaveButton>
+          <CancelButton onClick={handleClearFields}>Limpar</CancelButton>
         </form>
-        <div>{categories.length}</div>
-        <ul>
-          {categories.map((category, index) => {
-            return <li key={`${category}${index}`}>{category.name}</li>;
-          })}
-        </ul>
-        <Link to="/registration/video">Cadastrar vídeo</Link>
+
+        {categories.length ? (
+          <table>
+            <tr>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Editar</th>
+              <th>Remover</th>
+            </tr>
+            {categories.map((category, index) => {
+              return (
+                <tr key={`${category}${index}`}>
+                  <td>{category.name}</td>
+                  <td>{category.description}</td>
+                  <td>Editar</td>
+                  <td>Remover</td>
+                </tr>
+              );
+            })}
+          </table>
+        ) : (
+          <></>
+        )}
       </Container>
     </PageDefault>
   );

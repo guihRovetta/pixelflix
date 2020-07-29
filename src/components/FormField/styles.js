@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   border-radius: 4px;
 
   border-bottom: ${(props) =>
-    props.active ? '4px solid var(--primary)' : 'none'};
+    props.border ? '4px solid var(--primary)' : 'none'};
   transition: border 0.1s ease-in-out;
 `;
 
