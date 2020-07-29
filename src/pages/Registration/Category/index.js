@@ -3,11 +3,17 @@ import { Link } from 'react-router-dom';
 
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
+import { SaveButton, CancelButton } from './styles';
 
 import { Container, Title } from './styles';
 
 function Category() {
-  const initialValues = { name: '', description: '', color: '#FFFFFF' };
+  const initialValues = {
+    name: '',
+    description: '',
+    color: '#FFFFFF',
+    code: '',
+  };
   const [values, setValues] = useState(initialValues);
   const [categories, setCategories] = useState([]);
 
@@ -35,7 +41,7 @@ function Category() {
 
         <form onSubmit={handleSubmit} autocomplete="off">
           <FormField
-            label="Nome da Categoria"
+            label="Nome"
             type="text"
             name="name"
             value={values.name}
@@ -55,8 +61,16 @@ function Category() {
             value={values.color}
             onChange={handleChange}
           />
+          <FormField
+            label="Código de Segurança"
+            type="number"
+            name="code"
+            value={values.code}
+            onChange={handleChange}
+          />
 
-          <button>Salvar</button>
+          <SaveButton>Salvar</SaveButton>
+          <CancelButton>Limpar</CancelButton>
         </form>
         <div>{categories.length}</div>
         <ul>
