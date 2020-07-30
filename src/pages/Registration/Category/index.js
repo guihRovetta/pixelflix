@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
@@ -15,6 +15,21 @@ function Category() {
   };
   const [values, setValues] = useState(initialValues);
   const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    if (window.location.href.includes('localhost')) {
+      const URL = 'http://localhost:3333/categories';
+      fetch(URL)
+        .then(async (response) => {
+          if (response.ok) {
+            const responseCategories = await response.json();
+            setCategories([...responseCategories]);
+            return;
+          }
+          throw new Error('Não foi possível carregar as categorias do servidor');
+        });
+    }
+  }, []);
 
   function setValue(key, value) {
     setValues({
@@ -88,8 +103,8 @@ function Category() {
               <th>Remover</th>
             </tr>
             {categories.map((category) => (
-              <tr key={`${category.code}`}>
-                <td>{category.name}</td>
+              <tr key={`${category.id}`}>
+                <td>{category.title}</td>
                 <td>{category.description}</td>
                 <td>Editar</td>
                 <td>Remover</td>
