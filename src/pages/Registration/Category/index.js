@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
-import { SaveButton, CancelButton } from './styles';
-
-import { Container, Title } from './styles';
+import {
+  SaveButton, CancelButton, Container, Title,
+} from './styles';
 
 function Category() {
   const initialValues = {
@@ -42,7 +42,7 @@ function Category() {
       <Container>
         <Title>Nova Categoria</Title>
 
-        <form autocomplete="off">
+        <form autoComplete="off">
           <FormField
             label="Nome"
             type="text"
@@ -52,10 +52,11 @@ function Category() {
           />
           <FormField
             label="Descrição"
-            type="text"
+            type="textarea"
             name="description"
             value={values.description}
             onChange={handleChange}
+            as="textarea"
           />
           <FormField
             label="Cor"
@@ -84,16 +85,14 @@ function Category() {
               <th>Editar</th>
               <th>Remover</th>
             </tr>
-            {categories.map((category, index) => {
-              return (
-                <tr key={`${category}${index}`}>
-                  <td>{category.name}</td>
-                  <td>{category.description}</td>
-                  <td>Editar</td>
-                  <td>Remover</td>
-                </tr>
-              );
-            })}
+            {categories.map((category) => (
+              <tr key={`${category.code}`}>
+                <td>{category.name}</td>
+                <td>{category.description}</td>
+                <td>Editar</td>
+                <td>Remover</td>
+              </tr>
+            ))}
           </table>
         ) : (
           <></>

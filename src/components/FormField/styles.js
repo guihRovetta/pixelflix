@@ -7,31 +7,28 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
   position: relative;
   display: flex;
-  height: 50px;
+  height: ${(props) => (props.isTextArea ? '150px' : '50px')};
   padding: 14px 10px;
   background-color: #53585d;
   border-radius: 4px;
 
-  border-bottom: ${(props) =>
-    props.border ? '4px solid var(--primary)' : 'none'};
+  border-bottom: ${(props) => (props.border ? '4px solid var(--primary)' : 'none')};
   transition: border 0.1s ease-in-out;
 `;
 
 export const Label = styled.label`
   position: absolute;
-  color: ${(props) =>
-    props.active || props.type === 'color'
-      ? 'var(--grayDark)'
-      : 'var(--grayMedium)'};
+  color: ${(props) => (props.active || props.type === 'color'
+    ? 'var(--grayDark)'
+    : 'var(--grayMedium)')};
   font-size: 18px;
   transform-origin: top left;
   transform: translate(0, 16px) scale(1);
   transition: all 0.1s ease-in-out;
 
-  transform: ${(props) =>
-    props.active || props.type === 'color'
-      ? 'translate(0, -10px) scale(.67)'
-      : 'none'};
+  transform: ${(props) => (props.active || props.type === 'color'
+    ? 'translate(0, -10px) scale(.67)'
+    : 'none')};
 `;
 
 export const Input = styled.input`

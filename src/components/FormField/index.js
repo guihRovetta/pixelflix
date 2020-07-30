@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-import { Container, Wrapper, Label, Input } from './styles';
+import {
+  Container, Wrapper, Label, Input,
+} from './styles';
 
-function FormField({ label, type, name, value, onChange }) {
+function FormField({
+  label, type, name, value, onChange, as,
+}) {
   const [inputFocus, setInputFocus] = useState(false);
   const [inputActive, setInputActive] = useState(false);
 
@@ -28,11 +33,12 @@ function FormField({ label, type, name, value, onChange }) {
 
   return (
     <Container>
-      <Wrapper border={inputActive}>
+      <Wrapper border={inputActive} isTextArea={type === 'textarea'}>
         <Label active={inputFocus} type={type}>
           {label}
         </Label>
         <Input
+          as={as}
           type={type}
           value={value}
           name={name}
@@ -45,5 +51,21 @@ function FormField({ label, type, name, value, onChange }) {
     </Container>
   );
 }
+
+FormField.defaultProps = {
+  type: 'text',
+  value: '',
+  onChange: () => {},
+  as: 'input',
+};
+
+FormField.propTypes = {
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  as: PropTypes.string,
+};
 
 export default FormField;
