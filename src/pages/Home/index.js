@@ -13,20 +13,16 @@ function Home() {
       <BannerMain
         videoTitle={initialData.categories[0].videos[0].title}
         url={initialData.categories[0].videos[0].url}
-        videoDescription={
-          'O que é Front-end? Trabalhando na área os termos HTML, CSS e JavaScript fazem parte da rotina das desenvolvedoras e desenvolvedores. Mas o que eles fazem, afinal? Descubra com a Vanessa!'
-        }
+        videoDescription="O que é Front-end? Trabalhando na área os termos HTML, CSS e JavaScript fazem parte da rotina das desenvolvedoras e desenvolvedores. Mas o que eles fazem, afinal? Descubra com a Vanessa!"
       />
 
-      {initialData.categories.map((category, index) => {
-        return (
-          <Carousel
-            key={category.title}
-            category={category}
-            ignoreFirstVideo={index === 0 ? true : false}
-          />
-        );
-      })}
+      {initialData.categories.map((category, index) => (
+        <Carousel
+          key={category.title}
+          category={category}
+          ignoreFirstVideo={index === 0}
+        />
+      ))}
 
       <Footer />
     </div>

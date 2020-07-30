@@ -4,7 +4,7 @@ import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import {
   Container, Title, ActionsWrapper, SaveButton, CancelButton,
-} from './styles';
+} from '../styles';
 
 function Category() {
   const initialValues = {

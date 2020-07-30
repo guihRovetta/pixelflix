@@ -25,6 +25,20 @@ const Button = styled.a`
 export const ButtonLink = styled(Button)`
   color: var(--white);
   border: 1px solid var(--white);
+
+  @media (max-width: 800px) {
+    height: 40px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 0;
+    background-color: var(--primary);
+  }
 `;
 
 export default Button;
