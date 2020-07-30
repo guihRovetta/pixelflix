@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -8,44 +8,21 @@ import {
 function FormField({
   label, type, name, value, onChange, as,
 }) {
-  const [inputFocus, setInputFocus] = useState(false);
-  const [inputActive, setInputActive] = useState(false);
-
-  useEffect(() => {
-    if (!value) {
-      setInputFocus(false);
-    }
-  }, [value]);
-
-  function handleInputFocus() {
-    if (!value) {
-      setInputFocus((prevState) => !prevState);
-      setInputActive(true);
-    }
-  }
-
-  function handleInputBlur() {
-    setInputActive(false);
-    if (!value) {
-      setInputFocus(false);
-    }
-  }
-
   return (
     <Container>
-      <Wrapper border={inputActive} isTextArea={type === 'textarea'}>
-        <Label active={inputFocus} type={type}>
-          {label}
+      <Wrapper>
+        <Label>
+          <Input
+            as={as}
+            type={type}
+            value={value}
+            name={name}
+            onChange={onChange}
+          />
+          <Label.Text>
+            {label}
+          </Label.Text>
         </Label>
-        <Input
-          as={as}
-          type={type}
-          value={value}
-          name={name}
-          onChange={onChange}
-          onBlur={handleInputBlur}
-          onFocus={handleInputFocus}
-        />
       </Wrapper>
       {/* <ErrorLabel>{label} é obrigatório</ErrorLabel> */}
     </Container>

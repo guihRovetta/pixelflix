@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   margin-bottom: 72px;
@@ -6,47 +6,69 @@ export const Container = styled.div`
 
 export const Wrapper = styled.div`
   position: relative;
-  display: flex;
-  height: ${(props) => (props.isTextArea ? '150px' : '50px')};
-  padding: 14px 10px;
-  background-color: #53585d;
-  border-radius: 4px;
-
-  border-bottom: ${(props) => (props.border ? '4px solid var(--primary)' : 'none')};
-  transition: border 0.1s ease-in-out;
+  textarea {
+    min-height: 150px;
+  }
+  input[type="color"] {
+    padding-left: 56px;
+  }
 `;
 
-export const Label = styled.label`
-  position: absolute;
-  color: ${(props) => (props.active || props.type === 'color'
-    ? 'var(--grayDark)'
-    : 'var(--grayMedium)')};
-  font-size: 18px;
-  transform-origin: top left;
-  transform: translate(0, 16px) scale(1);
-  transition: all 0.1s ease-in-out;
+export const Label = styled.label``;
 
-  transform: ${(props) => (props.active || props.type === 'color'
-    ? 'translate(0, -10px) scale(.67)'
-    : 'none')};
+Label.Text = styled.span`
+  color: #E5E5E5;
+  height: 57px;
+  position: absolute; 
+  top: 0;
+  left: 16px;
+  
+  display: flex;
+  align-items: center;
+  
+  transform-origin: 0% 0%;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 300;
+  
+  transition: .1s ease-in-out;
 `;
 
 export const Input = styled.input`
-  outline: 0;
-  border: none;
-  background-color: transparent;
-  color: var(--grayLight);
+  background: #53585D;
+  color: #F5F5F5;
+  display: block;
+  width: 100%;
+  height: 57px;
   font-size: 18px;
-  padding: 16px 0 10px;
-  flex: 1;
-  z-index: 2;
-  caret-color: #c2c2c2;
-
-  &[type='color'] {
-    border-radius: 4px;
-    height: 28px;
-    padding: 0;
+  
+  outline: 0;
+  border: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid #53585D;
+  
+  padding: 16px 16px;
+  margin-bottom: 45px;
+  
+  resize: none;
+  border-radius: 4px;
+  transition: border-color .3s;
+  
+  &:focus {
+    border-bottom-color: var(--primary);
   }
+  &:focus:not([type='color']) + ${Label.Text} {
+    transform: scale(.6) translateY(-10px);
+  }
+  ${({ value }) => {
+    const hasValue = value.length > 0;
+    return hasValue && css`
+        &:not([type='color']) + ${Label.Text} {
+          transform: scale(.6) translateY(-10px);
+        }
+      `;
+  }
+}
 `;
 
 export const ErrorLabel = styled.span`

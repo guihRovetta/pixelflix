@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import {
-  SaveButton, CancelButton, Container, Title,
+  Container, Title, ActionsWrapper, SaveButton, CancelButton,
 } from './styles';
 
 function Category() {
@@ -73,8 +73,10 @@ function Category() {
             onChange={handleChange}
           />
 
-          <SaveButton onClick={handleSubmit}>Salvar</SaveButton>
-          <CancelButton onClick={handleClearFields}>Limpar</CancelButton>
+          <ActionsWrapper>
+            <SaveButton onClick={handleSubmit}>Salvar</SaveButton>
+            <CancelButton onClick={handleClearFields}>Limpar</CancelButton>
+          </ActionsWrapper>
         </form>
 
         {categories.length ? (

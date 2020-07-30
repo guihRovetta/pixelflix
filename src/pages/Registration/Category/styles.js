@@ -44,6 +44,14 @@ export const Title = styled.h1`
   font-weight: normal;
 `;
 
+export const ActionsWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  @media (max-width: 800px) {
+    justify-content: space-between;
+  }
+`;
+
 export const SaveButton = styled(Button)`
   background-color: var(--primary);
   margin-right: 40px;
