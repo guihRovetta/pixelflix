@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
@@ -14,22 +14,18 @@ function Category() {
     code: '',
   };
   const [values, setValues] = useState(initialValues);
-  const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    if (window.location.href.includes('localhost')) {
-      const URL = 'http://localhost:3333/categories';
-      fetch(URL)
-        .then(async (response) => {
-          if (response.ok) {
-            const responseCategories = await response.json();
-            setCategories([...responseCategories]);
-            return;
-          }
-          throw new Error('Não foi possível carregar as categorias do servidor');
-        });
-    }
-  }, []);
+  async function saveCategory() {
+    const URL = 'http://localhost:3333/categories';
+    const response = await fetch(URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    });
+    return response.json();
+  }
 
   function setValue(key, value) {
     setValues({
@@ -44,7 +40,9 @@ function Category() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setCategories([...categories, values]);
+    saveCategory().then((data) => {
+      console.log(data);
+    });
     setValues(initialValues);
   }
 
@@ -93,27 +91,6 @@ function Category() {
             <CancelButton onClick={handleClearFields}>Limpar</CancelButton>
           </ActionsWrapper>
         </form>
-
-        {categories.length ? (
-          <table>
-            <tr>
-              <th>Nome</th>
-              <th>Descrição</th>
-              <th>Editar</th>
-              <th>Remover</th>
-            </tr>
-            {categories.map((category) => (
-              <tr key={`${category.id}`}>
-                <td>{category.title}</td>
-                <td>{category.description}</td>
-                <td>Editar</td>
-                <td>Remover</td>
-              </tr>
-            ))}
-          </table>
-        ) : (
-          <></>
-        )}
       </Container>
     </PageDefault>
   );

@@ -11,27 +11,39 @@ function Video() {
     title: '',
     link: '',
     thumbnail: '',
-    category: '',
+    categoryId: 0,
     description: '',
     code: '',
   };
   const [values, setValues] = useState(initialValues);
-  const [videos, setVideos] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     if (window.location.href.includes('localhost')) {
-      const URL = 'http://localhost:3333/videos';
+      const URL = 'http://localhost:3333/categories';
       fetch(URL)
         .then(async (response) => {
           if (response.ok) {
-            const responseVideos = await response.json();
-            setVideos([...responseVideos]);
+            const responseCategories = await response.json();
+            setCategories([...responseCategories]);
             return;
           }
-          throw new Error('Não foi possível carregar os vídeos do servidor');
+          throw new Error('Não foi possível carregar as categorias do servidor');
         });
     }
   }, []);
+
+  async function saveVideo() {
+    const URL = 'http://localhost:3333/videos';
+    const response = await fetch(URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    });
+    return response.json();
+  }
 
   function setValue(key, value) {
     setValues({
@@ -46,7 +58,9 @@ function Video() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setVideos([...videos, values]);
+    saveVideo().then((data) => {
+      console.log(data);
+    });
     setValues(initialValues);
   }
 
@@ -69,25 +83,29 @@ function Video() {
           />
           <FormField
             label="Link do vídeo"
-            type="text"
+            type="url"
             name="link"
             value={values.link}
             onChange={handleChange}
           />
           <FormField
             label="Link da imagem do vídeo"
-            type="text"
+            type="url"
             name="thumbnail"
             value={values.thumbnail}
             onChange={handleChange}
           />
-          <FormField
+          {/* <FormField
             label="Categoria"
             type="text"
-            name="category"
-            value={values.category}
+            name="categoryId"
+            value={values.categoryId}
             onChange={handleChange}
-          />
+          /> */}
+          <select name="categoryId">
+            {categories.map((category) => (
+              <option key={category.id} value={category.id} onChange={handleChange}>{category.title}</option>))}
+          </select>
           <FormField
             label="Descrição"
             type="textarea"
