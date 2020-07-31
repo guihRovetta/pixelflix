@@ -30,7 +30,7 @@ function Category() {
     event.preventDefault();
     repository.create('/categories', values);
     handleClearFields();
-    history.push('/');
+    history.push('/registration/video');
   }
 
   return (

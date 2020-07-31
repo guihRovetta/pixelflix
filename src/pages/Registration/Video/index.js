@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import useForm from '../../../hooks/useForm';
@@ -23,13 +23,14 @@ function Video() {
   const { values, handleChange, clearForm } = useForm(initialValues);
   const [response] = useFetch('/categories');
   const categoryTitles = response ? response.map(({ title }) => title) : [];
+  const [errorMessage, setErrorMessage] = useState('');
 
   const history = useHistory();
 
   function findCategoryId() {
     const categoryFound = response.find((category) => category.title === values.category);
 
-    return categoryFound.id;
+    return categoryFound ? categoryFound.id : 0;
   }
 
   function handleClearFields() {
@@ -38,10 +39,16 @@ function Video() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    values.categoryId = findCategoryId();
-    repository.create('/videos', values);
-    handleClearFields();
-    history.push('/');
+    const categoryId = findCategoryId();
+
+    if (categoryId) {
+      values.categoryId = categoryId;
+      repository.create('/videos', values);
+      handleClearFields();
+      history.push('/');
+    } else {
+      setErrorMessage('Categoria não encontrada! Cadaaste uma antes.');
+    }
   }
 
   return (
@@ -77,6 +84,7 @@ function Video() {
             value={values.category}
             onChange={handleChange}
             suggestions={categoryTitles}
+            errorMessage={errorMessage}
           />
           <FormField
             label="Descrição"

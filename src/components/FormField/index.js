@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  Container, Wrapper, Label, Input,
+  Container, Wrapper, Label, Input, ErrorLabel,
 } from './styles';
 
 function FormField({
-  label, type, name, value, onChange, as, suggestions,
+  label, type, name, value, onChange, as, suggestions, errorMessage,
 }) {
   const hasSuggestions = Boolean(suggestions.length);
 
@@ -40,7 +40,7 @@ function FormField({
           }
         </Label>
       </Wrapper>
-      {/* <ErrorLabel>{label} é obrigatório</ErrorLabel> */}
+      <ErrorLabel>{errorMessage}</ErrorLabel>
     </Container>
   );
 }
@@ -51,6 +51,7 @@ FormField.defaultProps = {
   onChange: () => {},
   as: 'input',
   suggestions: [],
+  errorMessage: '',
 };
 
 FormField.propTypes = {
@@ -61,6 +62,7 @@ FormField.propTypes = {
   onChange: PropTypes.func,
   as: PropTypes.string,
   suggestions: PropTypes.arrayOf(PropTypes.string),
+  errorMessage: PropTypes.string,
 };
 
 export default FormField;
