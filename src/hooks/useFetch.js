@@ -1,19 +1,27 @@
+import { useState, useEffect } from 'react';
 import { URL_SERVER } from '../config';
 
-function useFetch(path, data) {
-  async function postData() {
-    const URL = `${URL_SERVER}${path}`;
-    const response = await fetch(URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-    return response.json();
-  }
+function useFetch(path) {
+  const [response, setResponse] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  return { postData };
+  useEffect(() => {
+    (async () => {
+      try {
+        const url = `${URL_SERVER}${path}`;
+        const res = await fetch(url);
+        const json = await res.json();
+
+        setLoading(false);
+        setResponse(json);
+      } catch (err) {
+        setError(err);
+      }
+    })();
+  }, [path]);
+
+  return [response, loading, error];
 }
 
 export default useFetch;

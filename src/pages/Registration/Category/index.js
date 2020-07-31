@@ -1,6 +1,8 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import useForm from '../../../hooks/useForm';
+import repository from '../../../repositories';
 
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
@@ -18,17 +20,7 @@ function Category() {
 
   const { values, handleChange, clearForm } = useForm(initialValues);
 
-  async function saveCategory() {
-    const URL = 'http://localhost:3333/categories';
-    const response = await fetch(URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    });
-    return response.json();
-  }
+  const history = useHistory();
 
   function handleClearFields() {
     clearForm();
@@ -36,10 +28,9 @@ function Category() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    saveCategory().then((data) => {
-      console.log(data);
-    });
+    repository.create('/categories', values);
     handleClearFields();
+    history.push('/');
   }
 
   return (

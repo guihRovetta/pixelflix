@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import useForm from '../../../hooks/useForm';
+import repository from '../../../repositories';
 
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
@@ -18,34 +20,8 @@ function Video() {
     code: '',
   };
   const { values, handleChange, clearForm } = useForm(initialValues);
-  const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    if (window.location.href.includes('localhost')) {
-      const URL = 'http://localhost:3333/categories';
-      fetch(URL)
-        .then(async (response) => {
-          if (response.ok) {
-            const responseCategories = await response.json();
-            setCategories([...responseCategories]);
-            return;
-          }
-          throw new Error('Não foi possível carregar as categorias do servidor');
-        });
-    }
-  }, []);
-
-  async function saveVideo() {
-    const URL = 'http://localhost:3333/videos';
-    const response = await fetch(URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    });
-    return response.json();
-  }
+  const history = useHistory();
 
   function handleClearFields() {
     clearForm();
@@ -53,10 +29,9 @@ function Video() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    saveVideo().then((data) => {
-      console.log(data);
-    });
+    repository.create('/categories', values);
     handleClearFields();
+    history.push('/');
   }
 
   return (
@@ -93,10 +68,6 @@ function Video() {
             value={values.categoryId}
             onChange={handleChange}
           /> */}
-          <select name="categoryId">
-            {categories.map((category) => (
-              <option key={category.id} value={category.id} onChange={handleChange}>{category.title}</option>))}
-          </select>
           <FormField
             label="Descrição"
             type="textarea"
