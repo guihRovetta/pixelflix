@@ -13,10 +13,16 @@ function useFetch(path) {
         const res = await fetch(url);
         const json = await res.json();
 
+        if (res.ok) {
+          setResponse(json);
+        } else {
+          setError(json);
+        }
         setLoading(false);
-        setResponse(json);
       } catch (err) {
         setError(err);
+      } finally {
+        setLoading(false);
       }
     })();
   }, [path]);

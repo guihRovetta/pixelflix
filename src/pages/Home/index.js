@@ -5,13 +5,16 @@ import useFetch from '../../hooks/useFetch';
 import PageDefault from '../../components/PageDefault';
 import BannerMain from '../../components/BannerMain';
 import Carousel from '../../components/Carousel';
+import LoadingAnimation from '../../components/AnimatedElement';
+
+import animationData from '../../assets/video/loading.json';
 
 function Home() {
   const [response, loading] = useFetch('/categories?_embed=videos');
 
   return (
     <PageDefault paddingAll={0}>
-      {loading && <h1>Loading...</h1> }
+      {loading && <LoadingAnimation animationData={animationData} /> }
 
       {response && (
         <>
@@ -22,11 +25,13 @@ function Home() {
           />
 
           {response.map((category, index) => (
-            <Carousel
-              key={category.title}
-              category={category}
-              ignoreFirstVideo={index === 0}
-            />
+            category.videos.length ? (
+              <Carousel
+                key={category.title}
+                category={category}
+                ignoreFirstVideo={index === 0}
+              />
+            ) : <></>
           ))}
         </>
       )}
