@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import useForm from '../../../hooks/useForm';
+import useFetch from '../../../hooks/useFetch';
 import repository from '../../../repositories';
 
 import PageDefault from '../../../components/PageDefault';
@@ -13,15 +14,23 @@ import {
 function Video() {
   const initialValues = {
     title: '',
-    link: '',
+    url: '',
     thumbnail: '',
-    categoryId: 0,
+    category: '',
     description: '',
     code: '',
   };
   const { values, handleChange, clearForm } = useForm(initialValues);
+  const [response] = useFetch('/categories');
+  const categoryTitles = response ? response.map(({ title }) => title) : [];
 
   const history = useHistory();
+
+  function findCategoryId() {
+    const categoryFound = response.find((category) => category.title === values.category);
+
+    return categoryFound.id;
+  }
 
   function handleClearFields() {
     clearForm();
@@ -29,7 +38,8 @@ function Video() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    repository.create('/categories', values);
+    values.categoryId = findCategoryId();
+    repository.create('/videos', values);
     handleClearFields();
     history.push('/');
   }
@@ -50,8 +60,8 @@ function Video() {
           <FormField
             label="Link do vídeo"
             type="url"
-            name="link"
-            value={values.link}
+            name="url"
+            value={values.url}
             onChange={handleChange}
           />
           <FormField
@@ -61,13 +71,13 @@ function Video() {
             value={values.thumbnail}
             onChange={handleChange}
           />
-          {/* <FormField
+          <FormField
             label="Categoria"
-            type="text"
-            name="categoryId"
-            value={values.categoryId}
+            name="category"
+            value={values.category}
             onChange={handleChange}
-          /> */}
+            suggestions={categoryTitles}
+          />
           <FormField
             label="Descrição"
             type="textarea"
