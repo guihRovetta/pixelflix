@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import useForm from '../../../hooks/useForm';
+
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import {
@@ -15,7 +17,7 @@ function Video() {
     description: '',
     code: '',
   };
-  const [values, setValues] = useState(initialValues);
+  const { values, handleChange, clearForm } = useForm(initialValues);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -45,15 +47,8 @@ function Video() {
     return response.json();
   }
 
-  function setValue(key, value) {
-    setValues({
-      ...values,
-      [key]: value,
-    });
-  }
-
-  function handleChange(event) {
-    setValue(event.target.getAttribute('name'), event.target.value);
+  function handleClearFields() {
+    clearForm();
   }
 
   function handleSubmit(event) {
@@ -61,11 +56,7 @@ function Video() {
     saveVideo().then((data) => {
       console.log(data);
     });
-    setValues(initialValues);
-  }
-
-  function handleClearFields() {
-    setValues(initialValues);
+    handleClearFields();
   }
 
   return (

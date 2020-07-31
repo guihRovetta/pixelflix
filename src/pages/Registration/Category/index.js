@@ -30,16 +30,16 @@ function Category() {
     return response.json();
   }
 
+  function handleClearFields() {
+    clearForm();
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     saveCategory().then((data) => {
       console.log(data);
     });
-    clearForm();
-  }
-
-  function handleClearFields() {
-    clearForm();
+    handleClearFields();
   }
 
   return (

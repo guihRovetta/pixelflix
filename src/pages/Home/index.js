@@ -1,15 +1,13 @@
-import React from 'react';
-import Menu from '../../components/Menu';
+import React, {} from 'react';
+
 import initialData from '../../data/initial_data.json';
+import PageDefault from '../../components/PageDefault';
 import BannerMain from '../../components/BannerMain';
 import Carousel from '../../components/Carousel';
-import Footer from '../../components/Footer';
 
 function Home() {
   return (
-    <div style={{ background: '#141414' }}>
-      <Menu />
-
+    <PageDefault paddingAll={0}>
       <BannerMain
         videoTitle={initialData.categories[0].videos[0].title}
         url={initialData.categories[0].videos[0].url}
@@ -23,9 +21,7 @@ function Home() {
           ignoreFirstVideo={index === 0}
         />
       ))}
-
-      <Footer />
-    </div>
+    </PageDefault>
   );
 }
 

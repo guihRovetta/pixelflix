@@ -1,8 +1,8 @@
-const baseUrl = 'http://localhost:3333/';
+import { URL_SERVER } from '../config';
 
 function useFetch(path, data) {
   async function postData() {
-    const URL = `${baseUrl}${path}`;
+    const URL = `${URL_SERVER}${path}`;
     const response = await fetch(URL, {
       method: 'POST',
       headers: {
