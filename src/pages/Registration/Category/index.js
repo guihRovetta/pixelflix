@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import useForm from '../../../hooks/useForm';
 
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
@@ -8,12 +10,13 @@ import {
 
 function Category() {
   const initialValues = {
-    name: '',
+    title: '',
     description: '',
     color: '#FFFFFF',
     code: '',
   };
-  const [values, setValues] = useState(initialValues);
+
+  const { values, handleChange, clearForm } = useForm(initialValues);
 
   async function saveCategory() {
     const URL = 'http://localhost:3333/categories';
@@ -27,27 +30,16 @@ function Category() {
     return response.json();
   }
 
-  function setValue(key, value) {
-    setValues({
-      ...values,
-      [key]: value,
-    });
-  }
-
-  function handleChange(event) {
-    setValue(event.target.getAttribute('name'), event.target.value);
-  }
-
   function handleSubmit(event) {
     event.preventDefault();
     saveCategory().then((data) => {
       console.log(data);
     });
-    setValues(initialValues);
+    clearForm();
   }
 
   function handleClearFields() {
-    setValues(initialValues);
+    clearForm();
   }
 
   return (
@@ -59,8 +51,8 @@ function Category() {
           <FormField
             label="Nome"
             type="text"
-            name="name"
-            value={values.name}
+            name="title"
+            value={values.title}
             onChange={handleChange}
           />
           <FormField
