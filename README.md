@@ -1,68 +1,96 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h2 align="center">
+PixelFlix - front-end web
+<br/>
+<br/>
+<img src="src/assets/img/logo.png">
+<br/>
 
-## Available Scripts
+<br/>
+<div style="display:flex">
+<img src="./src/assets/ecoleta-web.gif" width="100%">
+</div>
+<br/>
 
-In the project directory, you can run:
+</h2>
 
-### `yarn start`
+<blockquote align="center">
+  Projeto realizado durante o curso da Imersão React da Alura
+</blockquote>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<hr/>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## :ballot_box_with_check: Objetivos:
 
-### `yarn test`
+Eu desenvolvi esse projeto durante o curso da Imersão React da Alura, com o intuito de aprofundar ainda mais meus conhecimentos em front-end utilizando o React.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## :book: Sobre:
 
-### `yarn build`
+A ideia da aplicação seria como uma Netflix mas para vídeos de youtube dividios em categorias, nela o usuário poderá cadastrar uma categoria, cadastrar um vídeo e escolher uma das categorias existentes e também na página principal visualizar a lista de categorias com seus respectivos vídeos cadastrados.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🎓 Aplicação de conhecimentos:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- Aprofundamento do React
+- Utilização dos hooks (useState e useEffect)
+- Criação de custom hooks
+- Estilização de componentes utilizando o styled-compononents
+- Navegação de rotas com react-router-dom
+- Implementação de animações em After Affects utilizando a lib react-lottie
+- Aplicação da lib react-slick para o comportamento do componente de Carousel
+- Uso da lib json-server para simular um fake back-end
+- Padronização de código com o eslint
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🚀 Tecnologias:
 
-### `yarn eject`
+- React
+- JavaScript
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 🖥️ Como executar:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Clone o repositório com:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+git clone https://github.com/guihRovetta/pixelflix.git
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Para baixar as dependências e instalar, utilize o comando na raiz do projeto:
 
-## Learn More
+```bash
+yarn
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Para rodar o fake back-end do projeto, execute:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+yarn server
+```
 
-### Code Splitting
+Para rodar o front-end do projeto, execute:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```bash
+yarn start
+```
 
-### Analyzing the Bundle Size
+## 🤯 Funcionalidades extras:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+- Otimização e refatoração de código
+- Para manutenção de padrão, para todo tipo de estilização foi utilizado o styled-components
+- Maior componentização de códigos que eram repetidos
+- Adição de página 404
+- Adição de feedback para o usuário quando algo está carregando
+<!-- - Melhor fluxo da aplicação -->
+<!-- - Notificação de operações -->
 
-### Making a Progressive Web App
+---
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+<h3 align="center">
+Autor: <a alt="Guilherme de Almeida Rovetta" href="https://github.com/guihRovetta">Guilherme de Almeida Rovetta</a>
+</h3>
 
-### Advanced Configuration
+<p align="center">
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+  <a alt="Guilherme de Almeida Rovetta Linkedin" href="https://www.linkedin.com/in/guilherme-rovetta-381a89b0">
+  <img src="https://img.shields.io/badge/LinkedIn-Guilherme%20Rovetta-blue?logo=linkedin"/></a>
+  <a alt="Guilherme de Almeida Rovetta GitHub" href="https://github.com/guihRovetta">
+  <img src="https://img.shields.io/badge/GitHub-guihRovetta-lightgrey?logo=github"/></a>
 
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+</p>
