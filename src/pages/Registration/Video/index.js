@@ -7,6 +7,12 @@ import repository from '../../../repositories';
 
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
+import NotificationModal from '../../../components/NotificationModal';
+import AnimatedElement from '../../../components/AnimatedElement';
+
+import statusSucess from '../../../assets/video/sucess.json';
+import statusError from '../../../assets/video/error.json';
+
 import {
   Container, Title, ActionsWrapper, SaveButton, CancelButton,
 } from '../styles';
@@ -21,6 +27,9 @@ function Video() {
     code: '',
   };
   const { values, handleChange, clearForm } = useForm(initialValues);
+  const [statusInfo, setStatusInfo] = useState({});
+  const [animationData, setAnimationData] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const [response] = useFetch('/categories');
   const categoryTitles = response ? response.map(({ title }) => title) : [];
   const [errorMessage, setErrorMessage] = useState('');
@@ -37,17 +46,48 @@ function Video() {
     clearForm();
   }
 
-  function handleSubmit(event) {
+  function handleSucess() {
+    setStatusInfo({
+      title: 'Parabéns!',
+      message: `Vídeo ${values.title} adicionado com sucesso! Você será redicionado em poucos segundos para a página inicial`,
+      color: '#00c86f',
+    });
+
+    setAnimationData(statusSucess);
+
+    setTimeout(() => {
+      handleClearFields();
+      history.push('/');
+    }, 5000);
+  }
+
+  function handleError() {
+    setStatusInfo({
+      title: 'Ops...',
+      message: `Tivemos problemas ao cadastrar o vídeo ${values.title}. Por favor tente novamente!`,
+      color: '#e53935',
+    });
+
+    setAnimationData(statusError);
+
+    setTimeout(() => setShowModal(false), 5000);
+  }
+
+  async function handleSubmit(event) {
     event.preventDefault();
     const categoryId = findCategoryId();
 
     if (categoryId) {
       values.categoryId = categoryId;
-      repository.create('/videos', values);
-      handleClearFields();
-      history.push('/');
+      const res = await repository.create('/videos', values);
+      setShowModal(true);
+      if (res.ok) {
+        handleSucess();
+      } else {
+        handleError();
+      }
     } else {
-      setErrorMessage('Categoria não encontrada! Cadaaste uma antes.');
+      setErrorMessage('Categoria não encontrada! Cadastre uma antes.');
     }
   }
 
@@ -108,6 +148,12 @@ function Video() {
           </ActionsWrapper>
         </form>
       </Container>
+
+      {showModal && (
+        <NotificationModal status={statusInfo}>
+          <AnimatedElement animationData={animationData} width={250} height={250} />
+        </NotificationModal>
+      )}
     </PageDefault>
   );
 }

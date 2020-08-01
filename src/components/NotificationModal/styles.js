@@ -19,6 +19,7 @@ export const Container = styled.div`
 export const Tittle = styled.h1`
   color: ${(props) => props.color || 'var(--primary)'};
   font-size: 48px;
+  padding-top: 8px;
 `;
 
 export const Message = styled.p`

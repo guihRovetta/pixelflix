@@ -25,9 +25,7 @@ function Category() {
   };
 
   const { values, handleChange, clearForm } = useForm(initialValues);
-  const [title, setTitle] = useState('');
-  const [message, setMessage] = useState('');
-  const [color, setColor] = useState(null);
+  const [statusInfo, setStatusInfo] = useState({});
   const [animationData, setAnimationData] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -38,9 +36,12 @@ function Category() {
   }
 
   function handleSucess() {
-    setTitle('Parabéns!');
-    setMessage(`Categoria ${values.title} criada com sucesso! Você será redicionado em poucos segundos para a página de criação de vídeo`);
-    setColor('#00c86f');
+    setStatusInfo({
+      title: 'Parabéns!',
+      message: `Categoria ${values.title} criada com sucesso! Você será redicionado em poucos segundos para a página de criação de vídeo`,
+      color: '#00c86f',
+    });
+
     setAnimationData(statusSucess);
 
     setTimeout(() => {
@@ -50,9 +51,12 @@ function Category() {
   }
 
   function handleError() {
-    setTitle('Ops...');
-    setMessage(`Tivemos problemas ao cadastrar a categoria ${values.title}. Por favor tente novamente!`);
-    setColor('#e53935');
+    setStatusInfo({
+      title: 'Ops...',
+      message: `Tivemos problemas ao cadastrar a categoria ${values.title}. Por favor tente novamente!`,
+      color: '#e53935',
+    });
+
     setAnimationData(statusError);
 
     setTimeout(() => setShowModal(false), 5000);
@@ -113,7 +117,7 @@ function Category() {
       </Container>
 
       {showModal && (
-        <NotificationModal title={title} message={message} color={color}>
+        <NotificationModal status={statusInfo}>
           <AnimatedElement animationData={animationData} width={250} height={250} />
         </NotificationModal>
       )}
