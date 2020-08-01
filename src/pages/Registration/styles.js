@@ -61,3 +61,17 @@ export const CancelButton = styled(Button)`
   background-color: var(--blackLighter);
   color: var(--blackDark);
 `;
+
+export const CategoryContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  div {
+    flex: 1;
+  }
+`;
+
+export const AddCategoryButton = styled(Button)`
+  background-color: var(--primary);
+  margin-left: 24px;
+`;

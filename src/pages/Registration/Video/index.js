@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import useForm from '../../../hooks/useForm';
 import useFetch from '../../../hooks/useFetch';
@@ -14,7 +14,7 @@ import statusSucess from '../../../assets/video/sucess.json';
 import statusError from '../../../assets/video/error.json';
 
 import {
-  Container, Title, ActionsWrapper, SaveButton, CancelButton,
+  Container, Title, ActionsWrapper, SaveButton, CancelButton, CategoryContainer, AddCategoryButton,
 } from '../styles';
 
 function Video() {
@@ -118,14 +118,17 @@ function Video() {
             value={values.thumbnail}
             onChange={handleChange}
           />
-          <FormField
-            label="Categoria"
-            name="category"
-            value={values.category}
-            onChange={handleChange}
-            suggestions={categoryTitles}
-            errorMessage={errorMessage}
-          />
+          <CategoryContainer>
+            <FormField
+              label="Categoria"
+              name="category"
+              value={values.category}
+              onChange={handleChange}
+              suggestions={categoryTitles}
+              errorMessage={errorMessage}
+            />
+            <AddCategoryButton as={Link} to="/registration/category">Cadastrar</AddCategoryButton>
+          </CategoryContainer>
           <FormField
             label="Descrição"
             type="textarea"
