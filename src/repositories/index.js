@@ -1,7 +1,6 @@
 import { URL_SERVER } from '../config';
 
 async function create(path, data) {
-  console.log(path, data);
   const url = `${URL_SERVER}${path}`;
 
   const response = await fetch(url, {
@@ -12,7 +11,7 @@ async function create(path, data) {
     body: JSON.stringify(data),
   });
 
-  return response.json();
+  return response;
 }
 
 export default { create };

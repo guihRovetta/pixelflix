@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import useForm from '../../../hooks/useForm';
@@ -6,6 +6,12 @@ import repository from '../../../repositories';
 
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
+import NotificationModal from '../../../components/NotificationModal';
+import AnimatedElement from '../../../components/AnimatedElement';
+
+import statusSucess from '../../../assets/video/sucess.json';
+import statusError from '../../../assets/video/error.json';
+
 import {
   Container, Title, ActionsWrapper, SaveButton, CancelButton,
 } from '../styles';
@@ -19,6 +25,11 @@ function Category() {
   };
 
   const { values, handleChange, clearForm } = useForm(initialValues);
+  const [title, setTitle] = useState('');
+  const [message, setMessage] = useState('');
+  const [color, setColor] = useState(null);
+  const [animationData, setAnimationData] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const history = useHistory();
 
@@ -26,11 +37,36 @@ function Category() {
     clearForm();
   }
 
-  function handleSubmit(event) {
+  function handleSucess() {
+    setTitle('Parabéns!');
+    setMessage(`Categoria ${values.title} criada com sucesso! Você será redicionado em poucos segundos para a página de criação de vídeo`);
+    setColor('#00c86f');
+    setAnimationData(statusSucess);
+
+    setTimeout(() => {
+      handleClearFields();
+      history.push('/registration/video');
+    }, 5000);
+  }
+
+  function handleError() {
+    setTitle('Ops...');
+    setMessage(`Tivemos problemas ao cadastrar a categoria ${values.title}. Por favor tente novamente!`);
+    setColor('#e53935');
+    setAnimationData(statusError);
+
+    setTimeout(() => setShowModal(false), 5000);
+  }
+
+  async function handleSubmit(event) {
     event.preventDefault();
-    repository.create('/categories', values);
-    handleClearFields();
-    history.push('/registration/video');
+    const response = await repository.create('/categories', values);
+    setShowModal(true);
+    if (response.ok) {
+      handleSucess();
+    } else {
+      handleError();
+    }
   }
 
   return (
@@ -75,6 +111,13 @@ function Category() {
           </ActionsWrapper>
         </form>
       </Container>
+
+      {showModal && (
+        <NotificationModal title={title} message={message} color={color}>
+          <AnimatedElement animationData={animationData} width={250} height={250} />
+        </NotificationModal>
+      )}
+
     </PageDefault>
   );
 }
