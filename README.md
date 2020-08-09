@@ -6,8 +6,11 @@ PixelFlix - front-end web
 <br/>
 
 <br/>
-<div style="display:flex">
-<img src="./src/assets/ecoleta-web.gif" width="100%">
+<div>
+<img src="./src/assets/video/pixelflix-category-demo.gif" width="100%">
+<br/>
+<br/>
+<img src="./src/assets/video/pixelflix-video-demo.gif" width="100%">
 </div>
 <br/>
 
